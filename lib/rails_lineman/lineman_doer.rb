@@ -50,6 +50,7 @@ module RailsLineman
       chdir @lineman_project_location do
         install_node_js_on_heroku
         run_npm_install
+        run_bower_install
         run_lineman_build
         delete_node_js_from_heroku
       end
@@ -102,6 +103,19 @@ module RailsLineman
         rails-lineman failed while running `npm install` from the `#{@lineman_project_location}` directory.
 
         Make sure that you have Node.js installed on your system and that `npm` is on your PATH.
+
+        You can download Node.js here: http://nodejs.org
+
+      ERROR
+    end
+
+    def run_bower_install
+      return if system "bower install"
+      raise <<-ERROR
+
+        rails-lineman failed while running `bower install` from the `#{@lineman_project_location}` directory.
+
+        Make sure that you have Node.js installed on your system and that `bower` is on your PATH.
 
         You can download Node.js here: http://nodejs.org
 
